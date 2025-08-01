@@ -416,3 +416,5 @@ FodyWeavers.xsd
 *.msix
 *.msm
 *.msp
+/Devoteam.Demotask/Devoteam.DemoTask.Test/Utils/ParserTests.cs
+/Devoteam.Demotask/Devoteam.Demotask/Utils/StringInputParser.cs
