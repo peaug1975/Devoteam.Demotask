@@ -1,0 +1,37 @@
+name: Build and Test
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+env:
+  DOTNET_VERSION: '8.0.x' # Specify your required .NET SDK version
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [windows-latest]
+
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore dependencies
+        run: dotnet restore Devoteam.Demotask/Devoteam.Demotask.sln
+
+      - name: Build solution
+        run: dotnet build Devoteam.Demotask/Devoteam.Demotask.sln --configuration Release --no-restore
+
+      - name: Run tests
+        run: dotnet test Devoteam.Demotask/Devoteam.Demotask.sln --no-restore --verbosity normal
