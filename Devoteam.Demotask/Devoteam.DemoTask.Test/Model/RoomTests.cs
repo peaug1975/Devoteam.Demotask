@@ -15,12 +15,12 @@ namespace Devoteam.DemoTask.Test.Model
             var room = new SquareRoom(2, 4);
 
             //Inside
-            Assert.True(room.IsInside(1, 1));
-            Assert.True(room.IsInside(2, 4));
+            Assert.True(room.IsInside(0, 0));
+            Assert.True(room.IsInside(1, 3));
 
             //Outside
-            Assert.False(room.IsInside(0, 1));
-            Assert.False(room.IsInside(1, 0));
+            Assert.False(room.IsInside(0, -1));
+            Assert.False(room.IsInside(-1, 0));
             Assert.False(room.IsInside(3, 3));
             Assert.False(room.IsInside(1, 5));
         }

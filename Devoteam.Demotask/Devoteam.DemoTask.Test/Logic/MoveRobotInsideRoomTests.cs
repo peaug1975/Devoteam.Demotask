@@ -11,17 +11,20 @@ namespace Devoteam.DemoTask.Test.Logic
 {
     public class MoveRobotInsideRoomTests
     {
-        [Fact]
-        public void MoveRobotInsideRoomTest()
+        [Theory]
+        [InlineData("RFRFFRFRF", 1, 3, Direction.North, 1, 2, Direction.North)]
+        [InlineData("RFLFFLRF", 3, 1, Direction.East, 0, 0, Direction.East)]
+        public void MoveRobotInsideRoomTest(string moveSequence, int expectedX, int expectedY, Direction expectedDir, int startX, int startY, Direction startDir)
         {
             var room = new SquareRoom(5, 5);
-            var robot = new Robot(1, 2, Direction.North);
+            var robot = new Robot(startX, startY, startDir);
             var mover = new RobotMover();
-            mover.MoveRobotInRoomFromString(robot, room, "RFRFFRFRF");
-            Assert.Equal(1, robot.X);
-            Assert.Equal(3, robot.Y);
-            Assert.Equal(Direction.North, robot.Dir);
+            mover.MoveRobotInRoomFromString(robot, room, moveSequence);
+            Assert.Equal(expectedX, robot.X);
+            Assert.Equal(expectedY, robot.Y);
+            Assert.Equal(expectedDir, robot.Dir);
         }
+        
         [Fact]
         public void MoveRobotWithWrongInputTest()
         {
@@ -35,7 +38,7 @@ namespace Devoteam.DemoTask.Test.Logic
         public void ExitRoomTest()
         {
             var room = new SquareRoom(5, 5);
-            var robot = new Robot(1, 2, Direction.East);
+            var robot = new Robot(0, 2, Direction.East);
             var mover = new RobotMover();
             mover.MoveRobotInRoomFromString(robot, room, "FFFF");
             Assert.Throws<BusinessException>(() => mover.MoveRobotInRoomFromString(robot, room, "F"));

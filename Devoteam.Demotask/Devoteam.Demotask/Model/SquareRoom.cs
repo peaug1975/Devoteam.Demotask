@@ -17,10 +17,10 @@ namespace Devoteam.Demotask.Model
         private int roomDepth { get; set; }
         public bool IsInside(int x, int y)
         {
-            return x > 0
-                && y > 0
-                && x <= roomWidth 
-                && y <= roomDepth;
+            return x >= 0
+                && y >= 0
+                && x < roomWidth 
+                && y < roomDepth;
         }
     }
 }
