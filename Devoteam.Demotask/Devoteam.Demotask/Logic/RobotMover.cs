@@ -1,4 +1,5 @@
-﻿using Devoteam.Demotask.Model;
+﻿using Devoteam.Demotask.Exceptions;
+using Devoteam.Demotask.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,10 +19,10 @@ namespace Devoteam.Demotask.Logic
                     case 'F': robot.Move(MoveAction.Forward); break;
                     case 'L': robot.Move(MoveAction.Left); break;
                     case 'R': robot.Move(MoveAction.Right); break;
-                    default: throw new Exception("Not valid move");
+                    default: throw new ParserException(c + " is not valid move");
                 }
                 if (!room.IsInside(robot.X, robot.Y))
-                    throw new Exception("Robot walked outside room");
+                    throw new BusinessException("Robot walked outside room");
             }
         }
     }

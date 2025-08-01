@@ -1,4 +1,5 @@
-﻿using Devoteam.Demotask.Logic;
+﻿using Devoteam.Demotask.Exceptions;
+using Devoteam.Demotask.Logic;
 using Devoteam.Demotask.Model;
 using System;
 using System.Collections.Generic;
@@ -27,8 +28,9 @@ namespace Devoteam.DemoTask.Test.Logic
             var room = new SquareRoom(5, 5);
             var robot = new Robot(1, 2, Direction.North);
             var mover = new RobotMover();
-            Assert.Throws<Exception>(() => mover.MoveRobotInRoomFromString(robot, room, "X"));
+            Assert.Throws<ParserException>(() => mover.MoveRobotInRoomFromString(robot, room, "X"));
         }
+
         [Fact]
         public void ExitRoomTest()
         {
@@ -36,7 +38,7 @@ namespace Devoteam.DemoTask.Test.Logic
             var robot = new Robot(1, 2, Direction.East);
             var mover = new RobotMover();
             mover.MoveRobotInRoomFromString(robot, room, "FFFF");
-            Assert.Throws<Exception>(() => mover.MoveRobotInRoomFromString(robot, room, "F"));
+            Assert.Throws<BusinessException>(() => mover.MoveRobotInRoomFromString(robot, room, "F"));
         }
     }
 }
